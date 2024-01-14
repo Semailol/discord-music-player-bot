@@ -40,5 +40,9 @@ async def play(interaction: nextcord.Interaction, url: str):
     embed.set_image(url=thumbnail)
 
     await interaction.response.send_message(embed=embed)
-
+@bot.slash_command(name='leave', description='Leave the voice channel')
+async def leave(interaction: nextcord.Interaction):
+    voice_channel = nextcord.utils.get(bot.voice_clients, guild=interaction.guild)
+    if voice_channel.is_connected():
+        await voice_channel.disconnect()
 bot.run('bot-token')
